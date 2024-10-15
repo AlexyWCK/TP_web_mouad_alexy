@@ -29,7 +29,6 @@ Une fois les dépendances installées, l'application devrait se lancer toute seu
 Si ce n'est pas le cas, vérifiez que toutes les installations se sont bien installées et n'hésitez pas à faire cette commande : 
 
    ```
-   pip install -r requierements.txt
+   pip install -r requirements.txt
    ```
 
-   
