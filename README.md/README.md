@@ -7,6 +7,8 @@ Ce projet a été réalisé par :
 - **Alexy Wiciak**
 - **Mouad Zouadi**
 
+Voici le lien git : https://github.com/AlexyWCK/TP_web_mouad_alexy.git
+
 ## Détails de l'Installation
 
 Pour installer et exécuter cette application Flask, suivez les étapes ci-dessous :
@@ -31,4 +33,17 @@ Si ce n'est pas le cas, vérifiez que toutes les installations se sont bien inst
    ```
    pip install -r requirements.txt
    ```
+
+   Une fois toutes les dépendances installées, vous pouvez executer les commandes suivantes : 
+
+   ```
+   source venv/bin/activate
+   ```
+   
+   Lorque vous êtes dans  l'environnemlent virtuel (venv) : lancez le site avec cette commande : 
+
+   ```
+   flask run
+   ```
+
 
