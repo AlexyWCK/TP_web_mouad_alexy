@@ -26,4 +26,10 @@ Pour installer et exécuter cette application Flask, suivez les étapes ci-desso
     ```
 Une fois les dépendances installées, l'application devrait se lancer toute seule, il ne reste plus qu'a visiter le site. 
 
-Si ce n'est pas le cas, vérifiez que toutes les installations se sont bien installées et n'hhésitez pas à copier coller dans requirements.txt
+Si ce n'est pas le cas, vérifiez que toutes les installations se sont bien installées et n'hésitez pas à faire cette commande : 
+
+   ```
+   pip install -r requierements.txt
+   ```
+
+   
