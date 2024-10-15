@@ -16,7 +16,7 @@ Pour installer et exécuter cette application Flask, suivez les étapes ci-desso
 1. **Clonez le dépôt :**
 
    ```
-   git clone https://github.com/AlexyWCK/TP_WEB.git
+   git clone https://github.com/AlexyWCK/TP_web_mouad_alexy.git
     ```
 
 2. **Lancez le scipt : lancement_commandes.sh:**

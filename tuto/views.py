@@ -98,7 +98,7 @@ def login():
             return redirect(url_for("home"))
     return render_template("login.html", form=f)
 
-@app.route("/logout/")
+@app.route("/register/")
 def register():
     # logout_user()
     return redirect(url_for('home'))
