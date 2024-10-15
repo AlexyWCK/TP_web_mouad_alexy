@@ -108,3 +108,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password')
     next = HiddenField()
 
+
+@app.route("/authors/sort")
+def sort_authors():
+    authors = Author.query.order_by(Author.name).all()
+    return render_template("authors.html", authors=authors)
