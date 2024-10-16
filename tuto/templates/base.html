@@ -22,20 +22,26 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">My Books</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/authors">Auteurs</a>
+                            <a class="nav-link {% if request.path == '/authors' %}active{% endif %}" href="/authors">Auteurs</a>
                         </li>
+                        {% if current_user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('login') }}">Se connecter</a>
+                            <a class="nav-link {% if request.path == '/logout' %}active{% endif %}" href="{{ url_for('logout') }}">Déconnexion</a>
                         </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/login' %}active{% endif %}" href="{{ url_for('login') }}">Se connecter</a>
+                        </li>
+                        {% endif %}
                     </ul>
                     <form class="d-flex" role="search" action="{{ url_for('search') }}" method="GET">
                         <input class="form-control me-2" type="search" name="query" placeholder="Rechercher un auteur" aria-label="Search">
@@ -44,6 +50,7 @@
                 </div>
             </div>
         </nav>
+        
     </header>
     <!-- Your page content -->
     <main class="flex-shrink-0">

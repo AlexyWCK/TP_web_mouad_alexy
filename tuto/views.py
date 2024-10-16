@@ -1,12 +1,15 @@
-from wtforms import HiddenField, PasswordField, StringField
 from .app import *
 from flask import render_template, flash, redirect, request, url_for
-from .models import get_sample, get_author, AuthorForm
+from .models import get_sample, get_author, AuthorForm, RegistrationForm, LoginForm
 from .app import db
-from .models import Author, Book
+from .models import Author, Book, User
 from flask import request
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required,current_user
 from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired
+
 
 @app.route("/")
 def home():
@@ -32,6 +35,7 @@ def edit_author(id):
     return render_template("edit-author.html", author=a, form=f)
 
 @app.route("/save/author/", methods=("POST",))
+@login_required
 def save_author():
     f = AuthorForm()
     if f.validate_on_submit():
@@ -54,6 +58,7 @@ def authors():
     return render_template("authors.html", authors=Author.query.all())
 
 @app.route("/add/author", methods=("GET", "POST"))
+@login_required
 def add_author():
     f = AuthorForm()
     if f.validate_on_submit():
@@ -66,6 +71,7 @@ def add_author():
     return render_template("ajouter_auteur.html", form=f)
 
 @app.route("/delete/author", methods=["POST"])
+@login_required
 def delete_author():
     id = request.form.get('id')
     a = get_author(int(id))
@@ -90,21 +96,48 @@ def search():
 
 @app.route("/login/", methods=("GET", "POST"))
 def login():
-    f = LoginForm()
-    if f.validate_on_submit():
-        user = f.get_authenticated_user()
-        if user:
-            login_user(user)
-            return redirect(url_for("home"))
-    return render_template("login.html", form=f)
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()  
 
-@app.route("/register/")
+        if user is None:
+            error_message = "Nom d'utilisateur incorrect."
+            return render_template('login.html', error=error_message)
+        else:
+            if user.password != password:
+                error_message = "Mot de passe incorrect."
+                return render_template('login.html', error=error_message)
+            else:
+                login_user(user)
+                return redirect(url_for('home'))  
+
+    return render_template('login.html')
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    # logout_user()
-    return redirect(url_for('home'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user_existant = User.query.filter_by(username=form.username.data).first()
+        if user_existant:
+            form.username.errors.append("Ce nom d'utilisateur est déjà utilisé.")
+            return render_template('register.html', form=form)
 
-class LoginForm(FlaskForm):
-    username = StringField('Username')
-    password = PasswordField('Password')
-    next = HiddenField()
+        user = User(username=form.username.data, password=form.password.data)
+        
+        db.session.add(user)
+        db.session.commit()  
+        
+        return render_template('login.html', form=form)
+    return render_template('register.html', form=form)
 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id)) 
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()  
+    return redirect(url_for('login')) 

@@ -1,9 +1,13 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 
+
+
 app = Flask(__name__)
 app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 app.config['SECRET_KEY'] = "ccdfd612-8ef7-4db8-acdc-3d8b8ef13efc"
+
+
 bootstrap = Bootstrap(app)
 
 
@@ -19,3 +23,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('../myapp.db'))
 db = SQLAlchemy(app)
+
+from flask_login import LoginManager
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
