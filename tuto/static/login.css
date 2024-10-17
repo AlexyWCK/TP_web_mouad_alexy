@@ -2,7 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+    background-color: #f0f2f5;
 }
 
 .login-container {
@@ -29,7 +29,7 @@ h1 {
     width: 100%;
     max-width: 400px;
     text-align: center;
-    border: 1px solid #e0e0e0; /* Bordure légère */
+    border: 1px solid #e0e0e0;
 }
 
 .form-group {
@@ -67,8 +67,7 @@ h1 {
 }
 
 a {
-    display: block;
-    text-align: center;
+    display: inline-block;
     margin-top: 10px;
     color: #007bff;
     text-decoration: none;
@@ -79,6 +78,15 @@ a:hover {
     color: #0056b3;
 }
 
-body {
-    background-color: #f0f2f5; /* Couleur de fond pour le body */
+button {
+    display: inline-block;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+
+button a {
+    color: white;
 }
