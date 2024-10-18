@@ -106,7 +106,6 @@ def login():
             return render_template('login.html', error=error_message)
         else:
             if user.password == password:  # Simple comparaison sans sécurité
-                print(user,user.password, password)
                 login_user(user)
                 return redirect(url_for('home'))  
             else:
