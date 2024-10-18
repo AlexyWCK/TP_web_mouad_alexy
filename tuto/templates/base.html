@@ -42,6 +42,9 @@
                             <a class="nav-link {% if request.path == '/login' %}active{% endif %}" href="{{ url_for('login') }}">Se connecter</a>
                         </li>
                         {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/favories' %}active{% endif %}" href="/">Mes Favoris</a>
+                        </li>
                     </ul>
                     <form class="d-flex" role="search" action="{{ url_for('search') }}" method="GET">
                         <input class="form-control me-2" type="search" name="query" placeholder="Rechercher un auteur" aria-label="Search">
