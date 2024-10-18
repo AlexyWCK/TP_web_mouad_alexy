@@ -105,12 +105,13 @@ def login():
             error_message = "Nom d'utilisateur incorrect."
             return render_template('login.html', error=error_message)
         else:
-            if user.password != password:
-                error_message = "Mot de passe incorrect."
-                return render_template('login.html', error=error_message)
-            else:
+            if user.password == password:  # Simple comparaison sans sécurité
+                print(user,user.password, password)
                 login_user(user)
                 return redirect(url_for('home'))  
+            else:
+                error_message = "Mot de passe incorrect."
+                return render_template('login.html', error=error_message)
 
     return render_template('login.html')
 
@@ -140,4 +141,9 @@ def load_user(user_id):
 @login_required
 def logout():
     logout_user()  
-    return redirect(url_for('login')) 
+    return redirect(url_for('login'))
+
+@app.route("/authors/sort")
+def sort_authors():
+    authors = Author.query.order_by(Author.name).all()
+    return render_template("authors.html", authors=authors)
